@@ -20,7 +20,7 @@ class GenToken extends Command
 	 *
 	 * @var string
 	 */
-	protected $description = "Generate an ApplyByAPI token for Rebilly\n";
+	protected $description = "Request an ApplyByAPI token for Rebilly\n";
 
 	/**
 	 * Execute the console command.
