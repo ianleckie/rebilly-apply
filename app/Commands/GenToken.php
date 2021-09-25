@@ -32,8 +32,8 @@ class GenToken extends Command
 	{
 		
 		$server  = (string) $this->argument( 'server' );
-		$port    = (int) $this->argument( 'port' );
-		$posting = (int) $this->argument( 'posting' );
+		$port    = (int)    $this->argument( 'port' );
+		$posting = (int)    $this->argument( 'posting' );
 
 		$rebilly->genToken( $this, $server, $port, $posting );
 

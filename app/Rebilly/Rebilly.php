@@ -4,12 +4,50 @@ namespace App\Rebilly;
 
 class Rebilly {
 
-	public function genToken( $commandObj, $server, $port, $posting ) {
+	private $command_obj;
 
-		$commandObj->info( $server );
-		$commandObj->info( $port );
-		$commandObj->info( $posting );
+	public function genToken( \App\Commands\GenToken $command_obj, $server, $port, $posting ) {
 
-	}	
+		$this->command_obj = $command_obj;
+
+		// simple & direct
+		$curl_cmd = 'curl -s -X POST http://' . $server . ':' . $port . '/gentoken/ ' .
+						'-H "Content-Type: application/json" ' .
+						'-d \'{"posting": ' . $posting . '}\'';
+
+		$this->doCURL( $curl_cmd );
+
+	}
+
+	public function apply( \App\Commands\Apply $command_obj, $server, $port, $token ) {
+
+		$this->command_obj = $command_obj;
+
+		// simple & direct
+		$curl_cmd = 'curl -s -X POST http://' . $server . ':' . $port . '/apply/' .
+						' -F "token=' . $token . '"';
+						
+		$my_info = json_decode( file_get_contents( 'my-info.json' ) );
+
+		foreach( $my_info AS $prop => $data ) {
+			$curl_cmd .= ' -F "' . $prop . '=' . $data . '"';
+		}
+
+		$this->doCURL( $curl_cmd );
+
+	}
+
+	// exec curl command and send output to app
+	private function doCURL( $cmd ) {
+
+		exec( $cmd, $output );
+
+		foreach( $output AS $output_line ) {
+
+			$this->command_obj->info( $output_line );
+
+		}
+
+	}
 
 }
