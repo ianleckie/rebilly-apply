@@ -11,9 +11,9 @@ class Rebilly {
 		$this->command_obj = $command_obj;
 
 		// simple & direct
-		$curl_cmd = 'curl -s -X POST ' . $post_url . '/gentoken/ ' .
-						'-H "Content-Type: application/json" ' .
-						'-d \'{"posting": ' . $posting . '}\'';
+		$curl_cmd = 'curl -s -X POST ' . $post_url . '/gentoken/' .
+						' -H "Content-Type: application/json"' .
+						' -d \'{"posting": ' . $posting . '}\'';
 
 		$this->doCURL( $curl_cmd );
 
