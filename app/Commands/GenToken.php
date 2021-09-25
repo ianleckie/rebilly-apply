@@ -12,8 +12,7 @@ class GenToken extends Command
 	 * @var string
 	 */
 	protected $signature = 'gentoken
-		{ server  : The URL of the API server }
-		{ port    : The port of the API server }
+		{ url   : The URL of the API server (ie. http://localhost:8080) }
 		{ posting : The posting ID to apply for }';
 
 	/**
@@ -31,11 +30,10 @@ class GenToken extends Command
 	public function handle( \App\Rebilly\Rebilly $rebilly )
 	{
 		
-		$server  = (string) $this->argument( 'server' );
-		$port    = (int)    $this->argument( 'port' );
+		$url     = (string) $this->argument( 'url' );
 		$posting = (int)    $this->argument( 'posting' );
 
-		$rebilly->genToken( $this, $server, $port, $posting );
+		$rebilly->genToken( $this, $url, $posting );
 
 	}
 }

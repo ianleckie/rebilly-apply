@@ -6,12 +6,12 @@ class Rebilly {
 
 	private $command_obj;
 
-	public function genToken( \App\Commands\GenToken $command_obj, $server, $port, $posting ) {
+	public function genToken( \App\Commands\GenToken $command_obj, $post_url, $posting ) {
 
 		$this->command_obj = $command_obj;
 
 		// simple & direct
-		$curl_cmd = 'curl -s -X POST http://' . $server . ':' . $port . '/gentoken/ ' .
+		$curl_cmd = 'curl -s -X POST ' . $post_url . '/gentoken/ ' .
 						'-H "Content-Type: application/json" ' .
 						'-d \'{"posting": ' . $posting . '}\'';
 
@@ -19,12 +19,12 @@ class Rebilly {
 
 	}
 
-	public function apply( \App\Commands\Apply $command_obj, $server, $port, $token ) {
+	public function apply( \App\Commands\Apply $command_obj, $post_url, $token ) {
 
 		$this->command_obj = $command_obj;
 
 		// simple & direct
-		$curl_cmd = 'curl -s -X POST http://' . $server . ':' . $port . '/apply/' .
+		$curl_cmd = 'curl -s -X POST ' . $post_url . '/apply/' .
 						' -F "token=' . $token . '"';
 						
 		$my_info = json_decode( file_get_contents( 'my-info.json' ) );
